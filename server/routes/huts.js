@@ -21,7 +21,7 @@ router.get('/new', function(req, res, next) {
 			return;
 		};    
 	});
-	console.log("Se ha añadido una entrada a la base de datos");
+	console.log("Se ha añadido un refugio a la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
@@ -43,7 +43,7 @@ router.get('/edit', function(req, res, next) {
 			return;
 		};    
 	});
-	console.log("Se ha añadido una entrada a la base de datos");
+	console.log("Se ha modificado un refugio de la base de datos");
 	res.writeHead(200);
 	res.end();
 });
@@ -58,7 +58,7 @@ router.get('/delete', function(req, res, next) {
 			return;
 		};    
 	});
-	console.log("Se ha borrado una entrada de la base de datos");
+	console.log("Se ha borrado un refugio de la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
@@ -109,7 +109,7 @@ router.get('/fetch', function(req, res, next) {
 		res.write(filas);
 		res.end(); 
 	});
-	console.log("Se ha consultado una entrada de la base de datos");
+	console.log("Se ha consultado un refugio de la base de datos");
 });
 
 module.exports = router;
