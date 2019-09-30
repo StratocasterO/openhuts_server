@@ -79,14 +79,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `description`, `img`) VALUES
-(1, 'Open Huts', 'Info_Openhuts@gmail.com', '123456', 'Perfil Oficial de Open Huts', ''),
-(2, 'Omar Olmedo', 'omarolmedoferrer@gmail.com', '123456', 'Especialista y responsable del equipo de Programación y desarrollo de Open Huts. \r\n', ''),
-(3, 'Anna Manent', 'annnamg5@gmail.com', '123456', 'Especialista y responsable del equipo de Diseño de Open Huts. \r\n\r\n\r\n', ''),
-(4, 'Scarlet Sanchez', 'EM.sanchez.scarlet@gmail.com', '123456', 'Especialista y responsable del equipo de Diseño de Open Huts. \r\n', ''),
-(5, 'Mariana Lorena Heredia', '95marianalorena@gmail.com', '123456', 'Especialista y responsable del equipo de Marketing de Open Huts. \r\n', ''),
-(6, 'Víctor Matilla', 'vommu1295@gmail.com', '123456', 'Especialista y responsable del equipo de Marketing de Open Huts. \r\n', ''),
-(7, 'Jean Cordova', 'janncordovall@gmail.com', '123456', 'Especialista y responsable del equipo de Programación y desarrollo de Open Huts. \r\n', ''),
-(8, 'Bru Mas', 'howna13@gmail.com', '123456', 'Fundador de Open Huts. ', '');
+(1, 'Open Huts', 'info_Openhuts@gmail.com', '123456', 'Perfil Oficial de Open Huts', ''),
+(2, 'Omar Olmedo', 'omarolmedoferrer@gmail.com', '123456', 'Especialista y responsable del equipo de Programación y desarrollo de Open Huts', ''),
+(3, 'Anna Manent', 'annnamg5@gmail.com', '123456', 'Especialista y responsable del equipo de Diseño de Open Huts', ''),
+(4, 'Scarlet Sanchez', 'em.sanchez.scarlet@gmail.com', '123456', 'Especialista y responsable del equipo de Diseño de Open Huts', ''),
+(5, 'Mariana Lorena Heredia', '95marianalorena@gmail.com', '123456', 'Especialista y responsable del equipo de Marketing de Open Huts', ''),
+(6, 'Víctor Matilla', 'vommu1295@gmail.com', '123456', 'Especialista y responsable del equipo de Marketing de Open Huts', ''),
+(7, 'Bru Mas', 'howna13@gmail.com', '123456', 'Fundador de Open Huts', '');
 
 --
 -- Índices para tablas volcadas

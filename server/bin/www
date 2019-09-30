@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('server-refugis:server');
+var debug = require('debug')('openhuts_server:server');
 var http = require('http');
 
 /**

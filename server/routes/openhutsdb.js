@@ -4,7 +4,7 @@ var conexion = mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'',
-    database:'refugis'
+    database:'openhutsdb'
 });
 
 conexion.connect(function (error){

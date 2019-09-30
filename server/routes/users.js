@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var database = require('./refugis_db');
+var database = require('./openhutsdb');
 
 router.get('/new', function(req, res, next) {
 
