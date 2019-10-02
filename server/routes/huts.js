@@ -85,13 +85,15 @@ router.get('/delete', function(req, res, next) {
 router.get('/fetch', function(req, res, next) {
 	const id = req.query.id;
 	
-	database.query('SELECT * FROM huts WHERE ?',{id:id}, function(error,filas){
+	database.query('SELECT id, name, lat, lon FROM huts', function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
 		};    
 		
-		filas = JSON.stringify(filas);
+		//filas = JSON.stringify(filas);
+		
+		// Para cargar también comentarios:
 		
 		// database.query('SELECT * FROM comments WHERE ?',{id:id}, function(error,filas2){
 		//     if(error){            
@@ -105,9 +107,11 @@ router.get('/fetch', function(req, res, next) {
 		// const cont = {"refugi":filas,"comments":filas2}
 		// cont = JSON.stringify(cont);
 		
-		res.writeHead(200);
-		res.write(filas);
-		res.end(); 
+		res.send(filas);
+		
+		// res.writeHead(200);
+		// res.write(filas);
+		// res.end(); 
 	});
 	console.log("Se ha consultado un refugio de la base de datos");
 });
