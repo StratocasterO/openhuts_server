@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2019 a las 10:57:54
+-- Tiempo de generación: 03-10-2019 a las 14:53:39
 -- Versión del servidor: 10.1.33-MariaDB
 -- Versión de PHP: 7.2.6
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `openhutsdb`
+-- Base de datos: `openhutsdb2`
 --
 
 -- --------------------------------------------------------
@@ -64,8 +64,19 @@ INSERT INTO `huts` (`id`, `name`, `description`, `lat`, `lon`, `rating`, `user`,
 --
 -- Estructura de tabla para la tabla `lists`
 --
--- Error leyendo la estructura de la tabla openhutsdb.lists: #1932 - Table 'openhutsdb.lists' doesn't exist in engine
--- Error leyendo datos de la tabla openhutsdb.lists: #1064 - Algo está equivocado en su sintax cerca 'FROM `openhutsdb`.`lists`' en la linea 1
+
+CREATE TABLE `lists` (
+  `id` int(11) NOT NULL,
+  `user` int(11) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `lists`
+--
+
+INSERT INTO `lists` (`id`, `user`, `name`) VALUES
+(1, 2, 'Pirineos');
 
 -- --------------------------------------------------------
 
@@ -128,12 +139,21 @@ ALTER TABLE `huts`
   ADD KEY `user` (`user`);
 
 --
+-- Indices de la tabla `lists`
+--
+ALTER TABLE `lists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user` (`user`);
+
+--
 -- Indices de la tabla `lists-huts`
 --
 ALTER TABLE `lists-huts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `list` (`list`),
-  ADD KEY `hut` (`hut`);
+  ADD KEY `hut` (`hut`),
+  ADD KEY `list_2` (`list`),
+  ADD KEY `hut_2` (`hut`);
 
 --
 -- Indices de la tabla `users`
@@ -150,6 +170,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `huts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `lists`
+--
+ALTER TABLE `lists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `lists-huts`
@@ -172,6 +198,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `huts`
   ADD CONSTRAINT `CF_Users` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `lists`
+--
+ALTER TABLE `lists`
+  ADD CONSTRAINT `lists_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `lists-huts`

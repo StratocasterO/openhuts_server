@@ -107,7 +107,7 @@ router.get('/fetch', function(req, res, next) {
 		// const cont = {"refugi":filas,"comments":filas2}
 		// cont = JSON.stringify(cont);
 		
-		res.send(filas);
+		res.send({"results":filas});
 		
 		// res.writeHead(200);
 		// res.write(filas);
