@@ -81,7 +81,7 @@ router.get('/delete', function(req, res, next) {
 // 	res.end();
 // });
 
-// http://localhost:3000/huts/fetch?id=
+// http://localhost:3000/huts/fetch
 router.get('/fetch', function(req, res, next) {
 	const id = req.query.id;
 	
