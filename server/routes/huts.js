@@ -85,7 +85,7 @@ router.get('/delete', function(req, res, next) {
 router.get('/fetch', function(req, res, next) {
 	const id = req.query.id;
 	
-	database.query('SELECT id, name, lat, lon FROM huts', function(error,filas){
+	database.query('SELECT * FROM huts', function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
