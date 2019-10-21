@@ -4,8 +4,8 @@ var database = require('./openhutsdb');
 
 // http://localhost:3000/users/new?name=&email=
 router.get('/new', function(req, res, next) {
-    const name = req.query.name;
-    const email = req.query.email;
+	const name = req.query.name;
+	const email = req.query.email;
 	
 	database.query('INSERT INTO huts SET ?,?',[{name:name},{email:email}], function(error,filas){
 		if(error){            
@@ -22,8 +22,8 @@ router.get('/new', function(req, res, next) {
 router.get('/edit', function(req, res, next) {
 	const name = req.query.name;
 	const description = req.query.description;
-    const location = req.query.location;
-    const id = req.query.id;
+	const location = req.query.location;
+	const id = req.query.id;
 	
 	database.query('UPDATE huts SET ?,?,? WHERE ?',[{name:name},{description:description},{location:location},{id:id}], function(error,filas){
 		if(error){            
@@ -40,7 +40,7 @@ router.get('/edit', function(req, res, next) {
 
 // http://localhost:3000/users/fetch?id=
 router.get('/fetch', function(req, res, next) {
-    const id = req.query.id;
+	const id = req.query.id;
 	
 	database.query('SELECT * FROM users WHERE ?',{id:id}, function(error,filas){
 		if(error){            
@@ -57,24 +57,31 @@ router.get('/fetch', function(req, res, next) {
 	console.log("Se ha consultado un usuario de la base de datos");
 });
 
-// http://localhost:3000/users/login?id=
+// http://localhost:3000/users/login
 router.post('/login'), function(req, res, next){
-	const userName = req.body.userName;
-	const password = req.body.password;
-
-	// TODO database.query()
-
-	if(userName == user && password == pass){
-		const idRecuperadaDeLaBaseDeDatos = 1;
-		const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
-		res.send({token});
-	} else{
-		res.send({codigo: 403})
-	}}
+	const username = req.body.user;
+	const password = req.body.pass;
+	
+	database.query('SELECT * FROM users WHERE ?',{user:username}, function(error,filas){
+		if(error){            
+			console.log('Se ha producido un error al leer la base de datos');
+			return;
+		};
+		
+		if(filas.user == user && filas.pass == pass){
+			// const idRecuperadaDeLaBaseDeDatos = 1;
+			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
+			// res.send({token});
+			res.send("logged");
+		} else{
+			res.send({codigo: 403});
+		}
+	}
+}
 
 // http://localhost:3000/users/delete?id=
 router.get('/delete'), function(req, res, next){
-    const id = req.query.id;
+	const id = req.query.id;
 	
 	database.query('DELETE FROM users WHERE ?',{id:id}, function(error,filas){
 		if(error){            
