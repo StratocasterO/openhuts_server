@@ -58,17 +58,17 @@ router.get('/fetch', function(req, res, next) {
 });
 
 // http://localhost:3000/users/login
-router.post('/login'), function(req, res, next){
+router.post('/login', function(req, res, next){
 	const username = req.body.user;
 	const password = req.body.pass;
 	
-	database.query('SELECT * FROM users WHERE ?',{user:username}, function(error,filas){
+	database.query('SELECT * FROM users WHERE ?',{email:username}, function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
 		};
 		
-		if(filas.user == user && filas.pass == pass){
+		if(filas.pass == pass){
 			// const idRecuperadaDeLaBaseDeDatos = 1;
 			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
 			// res.send({token});
@@ -76,8 +76,8 @@ router.post('/login'), function(req, res, next){
 		} else{
 			res.send({codigo: 403});
 		}
-	}
-}
+	})
+});
 
 // http://localhost:3000/users/delete?id=
 router.get('/delete'), function(req, res, next){
