@@ -58,9 +58,19 @@ router.get('/fetch', function(req, res, next) {
 });
 
 // http://localhost:3000/users/login?id=
-router.get('/login'), function(req, res, next){
-    // TODO Login
-}
+router.post('/login'), function(req, res, next){
+	const userName = req.body.userName;
+	const password = req.body.password;
+
+	// TODO database.query()
+
+	if(userName == user && password == pass){
+		const idRecuperadaDeLaBaseDeDatos = 1;
+		const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
+		res.send({token});
+	} else{
+		res.send({codigo: 403})
+	}}
 
 // http://localhost:3000/users/delete?id=
 router.get('/delete'), function(req, res, next){
@@ -76,5 +86,9 @@ router.get('/delete'), function(req, res, next){
 	res.writeHead(200);
 	res.end(); 
 }
+
+// http://localhost:3000/users/password?id=
+// TODO send email (https://www.w3schools.com/nodejs/nodejs_email.asp)
+
 
 module.exports = router;

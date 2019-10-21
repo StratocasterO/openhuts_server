@@ -15,4 +15,4 @@ conexion.connect(function (error){
         console.log('Conexión con la base de datos establecida');
 });
 
-module.exports=conexion; 
+module.exports=conexion;
