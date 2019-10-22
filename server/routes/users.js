@@ -68,7 +68,7 @@ router.post('/login', function(req, res, next){
 			return;
 		};
 		
-		if(filas.pass == pass){
+		if(filas.pass == password){
 			// const idRecuperadaDeLaBaseDeDatos = 1;
 			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
 			// res.send({token});
