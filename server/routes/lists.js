@@ -2,98 +2,64 @@ var express = require('express');
 var router = express.Router();
 var database = require('./openhutsdb');
 
-// http://localhost:3000/huts/new?name=&description=&temp=&wind=&rain=&lon=&lat=&rating=&user=
+// http://localhost:3000/lists/new?user=&name=
 router.get('/new', function(req, res, next) {
 	const name = req.query.name;
-	const description = req.query.description;
-	const temp = req.query.temp;
-	const wind = req.query.wind;
-	const rain = req.query.rain;
-	const lon = req.query.lon;
-	const lat = req.query.lat;
-	const rating = req.query.rating;
 	const user = req.query.user;
-	// const img = req.query.img;
-	
-	database.query('INSERT INTO huts SET ?,?,?,?,?,?,?,?,?',[{name:name},{description:description},{wind:wind},{temp:temp},{rain:rain},{lon:lon},{lat:lat},{rating:rating},{user:user}], function(error,filas){
+		
+	database.query('INSERT INTO lists SET ?,?',[{user:user},{name:name}], function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al escribir en la base de datos');
 			return;
 		};    
 	});
-	console.log("Se ha añadido un refugio a la base de datos");
+	console.log("Se ha añadido una lista a la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
 
-// http://localhost:3000/huts/edit?name=&description=&temp=&wind=&rain=&lon=&lat=&rating=&id=
-router.get('/edit', function(req, res, next) {
-	const name = req.query.name;
-	const description = req.query.description;
-	const temp = req.query.temp;
-	const wind = req.query.wind;
-	const rain = req.query.rain;
-	const lon = req.query.lon;
-	const lat = req.query.lat;
-	const rating = req.query.rating;
+// http://localhost:3000/lists/add?list=&hut=
+router.get('/add', function(req, res, next) {
+	const list = req.query.list;
+	const hut = req.query.hut;
 	
-	database.query('UPDATE huts SET ?,?,?,?,?,?,?,? WHERE ?',[{name:name},{description:description},{wind:wind},{temp:temp},{rain:rain},{lon:lon},{lat:lat},{rating:rating},{id:id}], function(error,filas){
+	database.query('INSERT lists-huts SET ?,?',[{list:list},{hut:hut}], function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al escribir en la base de datos');
 			return;
 		};    
 	});
-	console.log("Se ha modificado un refugio de la base de datos");
+	console.log("Se ha añadido un refugio una lista de la base de datos");
 	res.writeHead(200);
 	res.end();
 });
 
-// http://localhost:3000/huts/delete?id=
+// http://localhost:3000/lists/delete?id=
 router.get('/delete', function(req, res, next) {
 	const id = req.query.id;
-	
-	database.query('DELETE FROM huts WHERE ?',{id:id}, function(error,filas){
+
+	database.query('DELETE FROM lists-huts WHERE ?',{id:id}, function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al escribir en la base de datos');
 			return;
 		};    
 	});
-	console.log("Se ha borrado un refugio de la base de datos");
+	console.log("Se ha borrado un refugio de una lista de la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
 
-// http://localhost:3000/huts/fetch
+// http://localhost:3000/lists/fetch
 router.get('/fetch', function(req, res, next) {
 	const id = req.query.id;
 	
-	database.query('SELECT id, name, lat, lon FROM huts', function(error,filas){
+	database.query('SELECT id, list, hut FROM lists-huts', function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
 		};    
 		
-		//filas = JSON.stringify(filas);
-		
-		// Para cargar también comentarios:
-		
-		// database.query('SELECT * FROM comments WHERE ?',{id:id}, function(error,filas2){
-		//     if(error){            
-		//         console.log('Se ha producido un error al leer la base de datos');
-		//         return;
-		//     };    
-		
-		//     filas2 = JSON.stringify(filas2);
-		// });
-		
-		// const cont = {"refugi":filas,"comments":filas2}
-		// cont = JSON.stringify(cont);
-		
 		res.send({"results":filas});
-		
-		// res.writeHead(200);
-		// res.write(filas);
-		// res.end(); 
 	});
 	console.log("Se ha consultado un refugio de la base de datos");
 });

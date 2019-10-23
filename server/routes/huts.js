@@ -63,24 +63,6 @@ router.get('/delete', function(req, res, next) {
 	res.end(); 
 });
 
-// http://localhost:3000/huts/comment?user=&comment=&rating=&id=
-// router.get('/comment', function(req, res, next) {
-// 	const user = req.query.user;
-// 	const comment = req.query.comment;
-// 	const rating = req.query.rating;
-// 	const id = req.query.id;
-	
-// 	database.query('INSERT INTO comments SET ?,?,?,?,?',[{user:user},{comment:comment},{rating:rating},{id:id}], function(error,filas){
-// 		if(error){            
-// 			console.log('Se ha producido un error al escribir en la base de datos');
-// 			return;
-// 		};    
-// 	});
-// 	console.log("Se ha añadido una entrada a la base de datos");
-// 	res.writeHead(200);
-// 	res.end();
-// });
-
 // http://localhost:3000/huts/fetch
 router.get('/fetch', function(req, res, next) {
 	const id = req.query.id;
@@ -89,31 +71,11 @@ router.get('/fetch', function(req, res, next) {
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
-		};    
-		
-		//filas = JSON.stringify(filas);
-		
-		// Para cargar también comentarios:
-		
-		// database.query('SELECT * FROM comments WHERE ?',{id:id}, function(error,filas2){
-		//     if(error){            
-		//         console.log('Se ha producido un error al leer la base de datos');
-		//         return;
-		//     };    
-		
-		//     filas2 = JSON.stringify(filas2);
-		// });
-		
-		// const cont = {"refugi":filas,"comments":filas2}
-		// cont = JSON.stringify(cont);
+		};
 		
 		res.send({"results":filas});
-		
-		// res.writeHead(200);
-		// res.write(filas);
-		// res.end(); 
 	});
-	console.log("Se ha consultado un refugio de la base de datos");
+	console.log("Se han consultado los refugios de la base de datos");
 });
 
 module.exports = router;
