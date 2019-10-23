@@ -38,6 +38,21 @@ router.get('/add', function(req, res, next) {
 router.get('/delete', function(req, res, next) {
 	const id = req.query.id;
 
+	database.query('DELETE FROM lists WHERE ?',{id:id}, function(error,filas){
+		if(error){            
+			console.log('Se ha producido un error al escribir en la base de datos');
+			return;
+		};    
+	});
+	console.log("Se ha borrado una lista de la base de datos");
+	res.writeHead(200);
+	res.end();  
+});
+
+// http://localhost:3000/lists/deletehut?id=
+router.get('/deletehut', function(req, res, next) {
+	const id = req.query.id;
+
 	database.query('DELETE FROM lists-huts WHERE ?',{id:id}, function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al escribir en la base de datos');

@@ -59,6 +59,7 @@ router.get('/fetch', function(req, res, next) {
 
 // http://localhost:3000/users/login
 router.post('/login', function(req, res, next){
+	Console.log(req.body);
 	const username = req.body.user;
 	const password = req.body.pass;
 	
