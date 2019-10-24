@@ -2,22 +2,6 @@ var express = require('express');
 var router = express.Router();
 var database = require('./openhutsdb');
 
-// http://localhost:3000/users/new?name=&email=
-router.get('/new', function(req, res, next) {
-	const name = req.query.name;
-	const email = req.query.email;
-	
-	database.query('INSERT INTO huts SET ?,?',[{name:name},{email:email}], function(error,filas){
-		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
-			return;
-		};    
-	});
-	console.log("Se ha añadido un usuario a la base de datos");
-	res.writeHead(200);
-	res.end(); 
-});
-
 // http://localhost:3000/huts/edit?name=&description=&location=&id=
 router.get('/edit', function(req, res, next) {
 	const name = req.query.name;
@@ -74,6 +58,30 @@ router.post('/login', function(req, res, next){
 			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
 			// res.send({token});
 			res.send("logged");
+		} else{
+			res.send({codigo: 403});
+		}
+	})
+});
+
+// http://localhost:3000/users/login
+router.post('/register', function(req, res, next){
+	Console.log(req.body);
+	const email = req.body.email;
+	const username = req.body.user;
+	const password = req.body.pass;
+	
+	database.query('INSERT INTO users WHERE ?,?,?',[{email:email},{user:username},{pass:password}], function(error,filas){
+		if(error){            
+			console.log('Se ha producido un error al leer la base de datos');
+			return;
+		};
+		
+		if(filas.pass == password){
+			// const idRecuperadaDeLaBaseDeDatos = 1;
+			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
+			// res.send({token});
+			res.send("registered");
 		} else{
 			res.send({codigo: 403});
 		}

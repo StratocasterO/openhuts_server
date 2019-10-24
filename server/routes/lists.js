@@ -68,7 +68,22 @@ router.get('/deletehut', function(req, res, next) {
 router.get('/fetch', function(req, res, next) {
 	const id = req.query.id;
 	
-	database.query('SELECT id, list, hut FROM lists-huts', function(error,filas){
+	database.query('SELECT hut FROM lists-huts WHERE ?',{list:id}, function(error,filas){
+		if(error){            
+			console.log('Se ha producido un error al leer la base de datos');
+			return;
+		};    
+		
+		res.send({"results":filas});
+	});
+	console.log("Se ha consultado un refugio de la base de datos");
+});
+
+// http://localhost:3000/lists/fetch
+router.get('/fetchLists', function(req, res, next) {
+	const user = req.query.user;
+
+	database.query('SELECT id, name FROM lists WHERE ?',{}, function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
