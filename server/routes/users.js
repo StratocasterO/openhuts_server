@@ -47,13 +47,13 @@ router.post('/login', function(req, res, next){
 	const username = req.body.user;
 	const password = req.body.pass;
 	
-	database.query('SELECT * FROM users WHERE ?',{email:username}, function(error,filas){
+	database.query('SELECT * FROM users WHERE ?,?',[{email:username},{pass:password}], function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
 		};
 		
-		if(filas.pass == password){
+		if(filas.lenght() > 0){
 			// const idRecuperadaDeLaBaseDeDatos = 1;
 			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
 			// res.send({token});
