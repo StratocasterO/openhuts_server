@@ -2,24 +2,6 @@ var express = require('express');
 var router = express.Router();
 var database = require('./openhutsdb');
 
-// http://localhost:3000/huts/edit?name=&description=&location=&id=
-router.get('/edit', function(req, res, next) {
-	const name = req.query.name;
-	const description = req.query.description;
-	const location = req.query.location;
-	const id = req.query.id;
-	
-	database.query('UPDATE huts SET ?,?,? WHERE ?',[{name:name},{description:description},{location:location},{id:id}], function(error,filas){
-		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
-			return;
-		};    
-	});
-	console.log("Se ha modificado un usuario de la base de datos");
-	res.writeHead(200);
-	res.end();
-});
-
 // TODO Profile image change
 
 // http://localhost:3000/users/fetch?id=
@@ -43,22 +25,25 @@ router.get('/fetch', function(req, res, next) {
 
 // http://localhost:3000/users/login
 router.post('/login', function(req, res, next){
-	Console.log(req.body);
-	const username = req.body.user;
+	console.log(req.body);
+	const username = req.body.name;
 	const password = req.body.pass;
 	
-	database.query('SELECT * FROM users WHERE ?,?',[{email:username},{pass:password}], function(error,filas){
+	const sql = database.query('SELECT * FROM users WHERE ? AND ?',[{email:username},{pass:password}], function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
 		};
 		
-		if(filas.lenght() > 0){
+		console.log(sql.sql) // Muestra la petición SQL
+		if(filas.length > 0){
+			console.log("Petición de login exitosa")
 			// const idRecuperadaDeLaBaseDeDatos = 1;
 			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
 			// res.send({token});
 			res.send("logged");
 		} else{
+			console.log("Petición de login fallida")
 			res.send({codigo: 403});
 		}
 	})
@@ -71,16 +56,25 @@ router.post('/register', function(req, res, next){
 	const username = req.body.user;
 	const password = req.body.pass;
 	
-	database.query('INSERT INTO users WHERE ?,?,?',[{email:email},{user:username},{pass:password}], function(error,filas){
+	database.query('INSERT INTO users WHERE ?,? AND ?',[{email:email},{user:username},{pass:password}], function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
 		};
 		
-		if(filas.pass == password){
+		if(filas.length > 0){
 			// const idRecuperadaDeLaBaseDeDatos = 1;
 			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
 			// res.send({token});
+
+			database.query('INSERT INTO lists WHERE ? AND ?',[{user:filas.id},{name:"Favorites"}], function(error,filas2){
+				if(error){            
+					console.log('Se ha producido un error al leer la base de datos');
+					return;
+				};
+				console.log('Se ha añadido la lista Favoritos a la base de datos');
+			})
+
 			res.send("registered");
 		} else{
 			res.send({codigo: 403});
@@ -99,8 +93,8 @@ router.get('/delete'), function(req, res, next){
 		};    
 	});
 	console.log("Se ha borrado un usuario de la base de datos");
-	res.writeHead(200);
-	res.end(); 
+	res.send("deleted");
+
 }
 
 // http://localhost:3000/users/password?id=

@@ -64,17 +64,31 @@ router.get('/deletehut', function(req, res, next) {
 	res.end(); 
 });
 
-// http://localhost:3000/lists/fetch
+// http://localhost:3000/lists/fetch?id=
 router.get('/fetch', function(req, res, next) {
 	const id = req.query.id;
 	
-	database.query('SELECT hut FROM lists-huts WHERE ?',{list:id}, function(error,filas){
+	database.query('SELECT * FROM lists WHERE ?',{user:id}, function(error,filas){
 		if(error){            
 			console.log('Se ha producido un error al leer la base de datos');
 			return;
 		};    
 		
-		res.send({"results":filas});
+		var ids = [];
+		for(var i=0; i < filas.length; i++){
+			ids.push(filas.i.id);
+		}
+		console.log(ids);
+
+		database.query('SELECT * FROM lists-huts WHERE ?',{list:ids}, function(error,filas2){
+			if(error){            
+				console.log('Se ha producido un error al leer la base de datos');
+				return;
+			}; 
+
+		const results = {filas,filas2}
+		res.send({"results":results});
+		});
 	});
 	console.log("Se ha consultado un refugio de la base de datos");
 });
