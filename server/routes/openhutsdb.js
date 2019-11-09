@@ -3,9 +3,9 @@ var mysql = require('mysql');
 //  mysql://bd9fdeeb519896:9e198052@eu-cdbr-west-02.cleardb.net/heroku_5e50e45fde7f817?reconnect=true
 
 var conexion = mysql.createConnection({
-    host:'pablomonteserin.com',
-    user:'openhuts',
-    password:'Kl0xxY0c',
+    host:'openhutsdb.c1bcj6q0pxm2.eu-west-3.rds.amazonaws.com',
+    user:'admin',
+    password:'12345678',
     database:'openhuts'
 });
 
