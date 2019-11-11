@@ -17,11 +17,10 @@ router.get('/new', function(req, res, next) {
 	
 	database.query('INSERT INTO huts SET ?,?,?,?,?,?,?,?,?',[{name:name},{description:description},{wind:wind},{temp:temp},{rain:rain},{lon:lon},{lat:lat},{rating:rating},{user:user}], function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database inser error');
 			return;
 		};    
 	});
-	console.log("Se ha añadido un refugio a la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
@@ -39,11 +38,10 @@ router.get('/edit', function(req, res, next) {
 	
 	database.query('UPDATE huts SET ?,?,?,?,?,?,?,? WHERE ?',[{name:name},{description:description},{wind:wind},{temp:temp},{rain:rain},{lon:lon},{lat:lat},{rating:rating},{id:id}], function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database update error');
 			return;
 		};    
 	});
-	console.log("Se ha modificado un refugio de la base de datos");
 	res.writeHead(200);
 	res.end();
 });
@@ -54,11 +52,10 @@ router.get('/delete', function(req, res, next) {
 	
 	database.query('DELETE FROM huts WHERE ?',{id:id}, function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database delete error');
 			return;
 		};    
 	});
-	console.log("Se ha borrado un refugio de la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
@@ -69,13 +66,12 @@ router.get('/fetch', function(req, res, next) {
 	
 	database.query('SELECT * FROM huts', function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al leer la base de datos');
+			console.debug('Database select error');
 			return;
 		};
 		
 		res.send({"results":filas});
 	});
-	console.log("Se han consultado los refugios de la base de datos");
 });
 
 module.exports = router;

@@ -10,7 +10,7 @@ router.get('/fetch', function(req, res, next) {
 	
 	database.query('SELECT * FROM users WHERE ?',{id:id}, function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al leer la base de datos');
+			console.debug('Se ha producido un error al leer la base de datos');
 			return;
 		};    
 		
@@ -20,31 +20,29 @@ router.get('/fetch', function(req, res, next) {
 		res.write(filas);
 		res.end(); 
 	});
-	console.log("Se ha consultado un usuario de la base de datos");
 });
 
 // http://localhost:3000/users/login
 router.post('/login', function(req, res, next){
-	console.log(req.body);
 	const username = req.body.name;
 	const password = req.body.pass;
 	
 	const sql = database.query('SELECT * FROM users WHERE ? AND ?',[{email:username},{pass:password}], function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al leer la base de datos');
+			console.debug('Database select error');
 			return;
 		};
 		
-		console.log(sql.sql) // Muestra la petición SQL
+		console.log(sql.sql);
 		if(filas.length > 0){
-			console.log("Petición de login exitosa")
+			console.debug("User logged")
 			// const idRecuperadaDeLaBaseDeDatos = 1;
 			// const token = jwt.sign({idRecuperadaDeLaBaseDeDatos}, SECRET);
 			// res.send({token});
-			res.send("logged");
+			res.send({log:"logged", user:filas[0]});
 		} else{
-			console.log("Petición de login fallida")
-			res.send({codigo: 403});
+			console.debug("Login failed")
+			res.send({code: 403});
 		}
 	})
 });
@@ -58,7 +56,7 @@ router.post('/register', function(req, res, next){
 	
 	database.query('INSERT INTO users WHERE ?,? AND ?',[{email:email},{user:username},{pass:password}], function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al leer la base de datos');
+			console.debug('Database insert error');
 			return;
 		};
 		
@@ -69,15 +67,14 @@ router.post('/register', function(req, res, next){
 
 			database.query('INSERT INTO lists WHERE ? AND ?',[{user:filas.id},{name:"Favorites"}], function(error,filas2){
 				if(error){            
-					console.log('Se ha producido un error al leer la base de datos');
+					console.debug('Database insert error');
 					return;
 				};
-				console.log('Se ha añadido la lista Favoritos a la base de datos');
 			})
 
 			res.send("registered");
 		} else{
-			res.send({codigo: 403});
+			res.send({code: 403});
 		}
 	})
 });
@@ -88,17 +85,14 @@ router.get('/delete'), function(req, res, next){
 	
 	database.query('DELETE FROM users WHERE ?',{id:id}, function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database delete error');
 			return;
 		};    
 	});
-	console.log("Se ha borrado un usuario de la base de datos");
 	res.send("deleted");
-
 }
 
 // http://localhost:3000/users/password?id=
 // TODO send email (https://www.w3schools.com/nodejs/nodejs_email.asp)
-
 
 module.exports = router;

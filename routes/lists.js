@@ -9,11 +9,10 @@ router.get('/new', function(req, res, next) {
 		
 	database.query('INSERT INTO lists SET ?,?',[{user:user},{name:name}], function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database insert error');
 			return;
 		};    
 	});
-	console.log("Se ha añadido una lista a la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
@@ -25,11 +24,10 @@ router.get('/add', function(req, res, next) {
 	
 	database.query('INSERT lists-huts SET ?,?',[{list:list},{hut:hut}], function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database insert error');
 			return;
 		};    
 	});
-	console.log("Se ha añadido un refugio una lista de la base de datos");
 	res.writeHead(200);
 	res.end();
 });
@@ -40,11 +38,10 @@ router.get('/delete', function(req, res, next) {
 
 	database.query('DELETE FROM lists WHERE ?',{id:id}, function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database delete error');
 			return;
 		};    
 	});
-	console.log("Se ha borrado una lista de la base de datos");
 	res.writeHead(200);
 	res.end();  
 });
@@ -55,11 +52,10 @@ router.get('/deletehut', function(req, res, next) {
 
 	database.query('DELETE FROM lists-huts WHERE ?',{id:id}, function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al escribir en la base de datos');
+			console.debug('Database delete error');
 			return;
 		};    
 	});
-	console.log("Se ha borrado un refugio de una lista de la base de datos");
 	res.writeHead(200);
 	res.end(); 
 });
@@ -70,42 +66,13 @@ router.get('/fetch', function(req, res, next) {
 	
 	database.query('SELECT * FROM lists WHERE ?',{user:id}, function(error,filas){
 		if(error){            
-			console.log('Se ha producido un error al leer la base de datos');
+			console.debug('Databasse select error');
 			return;
 		};    
-		
-		var ids = [];
-		for(var i=0; i < filas.length; i++){
-			ids.push(filas.i.id);
-		}
-		console.log(ids);
 
-		database.query('SELECT * FROM lists-huts WHERE ?',{list:ids}, function(error,filas2){
-			if(error){            
-				console.log('Se ha producido un error al leer la base de datos');
-				return;
-			}; 
-
-		const results = {filas,filas2}
-		res.send({"results":results});
-		});
-	});
-	console.log("Se ha consultado un refugio de la base de datos");
-});
-
-// http://localhost:3000/lists/fetch
-router.get('/fetchLists', function(req, res, next) {
-	const user = req.query.user;
-
-	database.query('SELECT id, name FROM lists WHERE ?',{}, function(error,filas){
-		if(error){            
-			console.log('Se ha producido un error al leer la base de datos');
-			return;
-		};    
-		
 		res.send({"results":filas});
 	});
-	console.log("Se ha consultado un refugio de la base de datos");
+	
 });
 
 module.exports = router;
