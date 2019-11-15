@@ -28,6 +28,15 @@ router.get('/add', function(req, res, next) {
 			return;
 		};    
 	});
+
+	database.query('UPDATE lists SET num = num + 1 WHERE ?',[{id:list}], function(error,filas){
+		if(error){            
+			console.debug('Database update error');
+			return;
+		};    
+	});
+
+
 	res.writeHead(200);
 	res.end();
 });
