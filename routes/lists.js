@@ -28,6 +28,15 @@ router.get('/add', function(req, res, next) {
 			return;
 		};    
 	});
+
+	database.query('UPDATE lists SET num = num + 1 WHERE ?',[{id:list}], function(error,filas){
+		if(error){            
+			console.debug('Database update error');
+			return;
+		};    
+	});
+
+
 	res.writeHead(200);
 	res.end();
 });
@@ -72,7 +81,20 @@ router.get('/fetch', function(req, res, next) {
 
 		res.send({"results":filas});
 	});
+});
+
+// http://localhost:3000/lists/fetchhuts?id=
+router.get('/fetchhuts', function(req, res, next) {
+	const id = req.query.id;
 	
+	database.query('SELECT * FROM huts WHERE id IN (SELECT hut FROM `lists-huts` WHERE ?)',{list:id}, function(error,filas){
+		if(error){            
+			console.debug('Databasse select error');
+			return;
+		};    
+
+		res.send({"results":filas});
+	});	
 });
 
 module.exports = router;
