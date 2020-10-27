@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-10-2019 a las 10:57:54
+-- Tiempo de generación: 03-10-2019 a las 14:53:39
 -- Versión del servidor: 10.1.33-MariaDB
 -- Versión de PHP: 7.2.6
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `openhutsdb`
+-- Base de datos: `openhutsdb2`
 --
 
 -- --------------------------------------------------------
@@ -52,7 +52,7 @@ INSERT INTO `huts` (`id`, `name`, `description`, `lat`, `lon`, `rating`, `user`,
 (3, 'Refugio Agulles Vicenç Barbe', 'Situat al bell mig de la regió montserratina d’Agulles, aquest és un dels dos equipaments guardats que té la Federació al massís de Montserrat', 41.6063, 1.7848, 0, 1, 2, 2, 2, NULL),
 (4, 'Refugi Sant Jordi', 'L’any 1951 la delegacio catalana de la llavors Federació Espanyola de Muntanyisme va habilitar com a refugi l’antic Hostal de la Font del Faig, ubicat en un enclavament estratègic al peu del coll de Pendís. Temps després, l’estat precari de l’edifici va propiciar que els propietaris cedissin a la FEEC una parcel•la veïna per erigir-hi un nou refugi', 42.2941, 1.805, 0, 1, 2, 2, 2, NULL),
 (5, 'Refugi Serra d\'Ensija', 'Situat en una magnífica raconada envoltada de prats, ben a prop de la seva màxima elevació de la serra d’Ensija, el Cap de la Gallina Pelada (2.321 m), és un equipament ideal tant per passar-hi la nit com per aturar-s’hi a fer un mos. Els camins d’accés pel barranc de Llobateres i per la Font Freda són una delícia. Es tracta també d’un indret magnífic per a la pràctica de l’excursionisme hivernal amb raquetes de neu, amb uns perfils de muntanyes majoritàriament arrodonits, ideals per a la pràctica d’aquesta disciplina de muntanya. També s’hi poden fer diverses excursions amb esquí de muntanya. Ensija és l’únic refugi guardat d’aquesta serralada prepirinenca, que amaga molts tresors amagats. Ara només es tracta de descobrir-los', 42.1872, 1.7486, 0, 1, 2, 2, 2, NULL),
-(6, 'Refugi Prat D\'Aguilo \"Cesar August Torras\"\r\n\r\n', 'Situat en una de les raconades més boniques de la serra del Cadí, al vessant nord de l’espectacular Pas dels Gosolans, el refugi Prat d’Aguiló fou inaugurat l’any 1976. Forma part de la popular travessa Cavalls del Vent, que recorre tots els refugi del Parc Natural del Cadí-Moixeró. Es tracta d’una parada obligatòria si es fa aquesta travessa o si es vol assolir el Comabona (2.548 m), el cim més popular d’aquesta part de la serra. Excel•lent camp base si es vol practicar l’alpinisme. També és molt recomanable el seu accés a través del PR-C 124 des del poble d’Olià (Cerdanya)', 42.2972, 1.7141, 0, 1, 2, 2, 2, NULL),
+(6, 'Refugi Prat D\'Aguilo \"Cesar August Torras\"', 'Situat en una de les raconades més boniques de la serra del Cadí, al vessant nord de l’espectacular Pas dels Gosolans, el refugi Prat d’Aguiló fou inaugurat l’any 1976. Forma part de la popular travessa Cavalls del Vent, que recorre tots els refugi del Parc Natural del Cadí-Moixeró. Es tracta d’una parada obligatòria si es fa aquesta travessa o si es vol assolir el Comabona (2.548 m), el cim més popular d’aquesta part de la serra. Excel•lent camp base si es vol practicar l’alpinisme. També és molt recomanable el seu accés a través del PR-C 124 des del poble d’Olià (Cerdanya)', 42.2972, 1.7141, 0, 1, 2, 2, 2, NULL),
 (7, 'Refugi Coma de Vaca', 'Coma de Vaca és un refugi modern i acollidor, situat en una bucòlica vall envoltada de cims, on conflueixen els rius Freser i Coma de Vaca. Punt de pas d’una de les variants del GR 11 (GR 11.7), l’excursió al refugi per les gorges del Freser o pel Camí dels Enginyers des de Núria ja és de per si una experiència inoblidable. El refugi també forma part de la Travessa dels 3 Refugis i de la ruta Muntanyes Màgiques', 42.3854, 2.219, 0, 1, 2, 2, 2, NULL),
 (8, 'Refugi Estanys de la Pera', 'Enlairat a 2357 m d’altitud, el refugi Estanys de la Pera es troba al vessant sud del port de Perafita, al costat dels estanys de la Pera. L’equipament, inaugurat l’any 1957, és punt de pas del GR 11.10, una de les variants del sender de gran recorregut transpirinenc per excel•lència, que comunica la Cerdanya amb el Principat d’Andorra', 42.4566, 1.5988, 0, 1, 2, 2, 2, NULL),
 (9, 'Refugi Costa Bona', 'Refugi situat al Vessant sud del Costabona, sota la font de Fra Joan ', 42.4107, 2.3398, 0, 1, 2, 2, 2, NULL),
@@ -64,8 +64,19 @@ INSERT INTO `huts` (`id`, `name`, `description`, `lat`, `lon`, `rating`, `user`,
 --
 -- Estructura de tabla para la tabla `lists`
 --
--- Error leyendo la estructura de la tabla openhutsdb.lists: #1932 - Table 'openhutsdb.lists' doesn't exist in engine
--- Error leyendo datos de la tabla openhutsdb.lists: #1064 - Algo está equivocado en su sintax cerca 'FROM `openhutsdb`.`lists`' en la linea 1
+
+CREATE TABLE `lists` (
+  `id` int(11) NOT NULL,
+  `user` int(11) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `lists`
+--
+
+INSERT INTO `lists` (`id`, `user`, `name`) VALUES
+(1, 2, 'Pirineos');
 
 -- --------------------------------------------------------
 
@@ -128,12 +139,21 @@ ALTER TABLE `huts`
   ADD KEY `user` (`user`);
 
 --
+-- Indices de la tabla `lists`
+--
+ALTER TABLE `lists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user` (`user`);
+
+--
 -- Indices de la tabla `lists-huts`
 --
 ALTER TABLE `lists-huts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `list` (`list`),
-  ADD KEY `hut` (`hut`);
+  ADD KEY `hut` (`hut`),
+  ADD KEY `list_2` (`list`),
+  ADD KEY `hut_2` (`hut`);
 
 --
 -- Indices de la tabla `users`
@@ -150,6 +170,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `huts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `lists`
+--
+ALTER TABLE `lists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `lists-huts`
@@ -172,6 +198,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `huts`
   ADD CONSTRAINT `CF_Users` FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `lists`
+--
+ALTER TABLE `lists`
+  ADD CONSTRAINT `lists_ibfk_1` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 
 --
 -- Filtros para la tabla `lists-huts`
